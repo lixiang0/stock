@@ -64,7 +64,8 @@ def stock():
 def init_time():
     return datetime.datetime(2017,1,1,9,25,00),datetime.datetime(2017,1,1,11,30,00),datetime.datetime(2017,1,1,13,00,00),datetime.datetime(2017,1,1,15,00,00)
 stock_strategy(stock())
-gap=time_gap(init_time())
+init_time=init_time()
+gap=time_gap(init_time)
 while True:
     now=datetime.datetime.now()  
     weekday=datetime.date.today().weekday()
@@ -72,7 +73,7 @@ while True:
         print("周末休市")
         time.sleep(60*60*6)#遇到周末 间断的休眠6个小时
         continue   
-    if(diff_sec(m_start,now)>0 and 0<diff_sec(now,m_end)<gap[0] or diff_sec(a_start,now)>0 and 0<diff_sec(now,a_end)<gap[1]):
+    if(diff_sec(init_time[0],now)>0 and 0<diff_sec(now,init_time[1])<gap[0] or diff_sec(init_time[2],now)>0 and 0<diff_sec(now,init_time[3])<gap[1]):
         stock_strategy(stock())
     else:
         print("休市")
