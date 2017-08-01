@@ -17,7 +17,7 @@ class obj_stock:
 
 def stock_strategy(args):
     for sto in args:
-        #关注上下波动超过2个点的股票
+        #关注上下波动超过5个点的股票
 #        print(sto)
 #        print(float(sto.now)-float(sto.today))
 #        print(sto.today if bool(float(sto.today)) else 10000)
@@ -42,7 +42,7 @@ def is_off(date,flag):
 
 def stock():
     '''还得加上大盘的情况，资金量，流入流出'''
-    url = 'http://hq.sinajs.cn/list=sh600538,sz000002,sz000656,sz002133,sz002613,sh601099,sh601872,sh601668,sh603133,sh603603,sz000655,sz002413,sz002413,sh000001,sz399006'
+    url = 'http://hq.sinajs.cn/list=sh600538,sz000002,sz000656,sz002133,sz002613,sh601099,sh601872,sh601668,sh603133,sh603603,sz000655,sz002413,sz002008,sh000001,sz399006'
     r = requests.get(url)
     str = r.text.split("\n")[0]
     obj_list=[]
@@ -61,19 +61,20 @@ def stock():
         print(obj)
         obj_list.append(obj)
     return obj_list
-def init_time():
-    return datetime.datetime(2017,1,1,9,25,00),datetime.datetime(2017,1,1,11,30,00),datetime.datetime(2017,1,1,13,00,00),datetime.datetime(2017,1,1,15,00,00)
-stock_strategy(stock())
-init_time=init_time()
-gap=time_gap(init_time)
+def init_time(now):
+    return [datetime.datetime(now.year,now.month,now.day,9,30,00),datetime.datetime(now.year,now.month,now.day,11,30,00),datetime.datetime(now.year,now.month,now.day,13,00,00),datetime.datetime(now.year,now.month,now.day,15,00,00)]
+# stock_strategy(stock())
 while True:
-    now=datetime.datetime.now()  
+    now=datetime.datetime.now()
     weekday=datetime.date.today().weekday()
+    gap = time_gap(init_time(now))
     if(weekday==6 or weekday==5):
         print("周末休市")
         time.sleep(60*60*6)#遇到周末 间断的休眠6个小时
-        continue   
-    if(diff_sec(init_time[0],now)>0 and 0<diff_sec(now,init_time[1])<gap[0] or diff_sec(init_time[2],now)>0 and 0<diff_sec(now,init_time[3])<gap[1]):
+        continue
+    m_time=init_time(now)
+    print(diff_sec(m_time[0],now),diff_sec(now,m_time[1]),diff_sec(m_time[2],now),diff_sec(now,m_time[3]))
+    if((diff_sec(m_time[0],now)>0 and 0<diff_sec(now,m_time[1])<gap[0]) or (diff_sec(m_time[2],now)>0 and 0<diff_sec(now,m_time[3])<gap[1])):
         stock_strategy(stock())
     else:
         print("休市")
