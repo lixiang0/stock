@@ -39,10 +39,13 @@ def time_gap(arg_time):
 
 def is_off(date,flag):
     return True
-
+def get_stocks():
+    file=open('config','r')
+    list=file.readlines()
+    return ','.join(list)[1:]
 def stock():
     '''还得加上大盘的情况，资金量，流入流出'''
-    url = 'http://hq.sinajs.cn/list=sh600538,sz000002,sz000656,sz002133,sz002613,sh601099,sh601872,sh601668,sh603133,sh603603,sz000655,sz002413,sz002008,sh000001,sz399006'
+    url = 'http://hq.sinajs.cn/list='+get_stocks()
     r = requests.get(url)
     str = r.text.split("\n")[0]
     obj_list=[]
@@ -81,4 +84,6 @@ while True:
         time.sleep(30*60)
         continue
     time.sleep(30)
+                             #今开  昨收   现价   最高  最低               成交量   成交额        买1    价格  买2   价格   买3   价格   买4    价格  买5    价格  卖1         卖2          卖3          卖4         卖5         时间
+#var hq_str_sh600538="国发股份,5.940,5.950,6.010,6.020,5.930,6.000,6.010,5211267,31156630.000,11200,6.000,84833,5.990,54000,5.980,41900,5.970,77500,5.960,5000,6.010,134100,6.020,77300,6.030,38900,6.040,84800,6.050,2017-08-25,15:00:00,00";
 
