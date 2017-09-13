@@ -6,4 +6,7 @@ _site/
 *.vcs
 __pycache__/
 .idea/
+codelist1.txt
+holdlist1.txt
+list
 
