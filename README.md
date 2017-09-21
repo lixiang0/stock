@@ -9,6 +9,18 @@
  - 设置需关注的代码
  - 自动更新最新数据
 
+#### 用法
+
+```python
+python3 main.py test #手动获取一次最新数据
+
+python3 main.py cycle #自动更新数据
+
+python3 main.py volume #获取深市和沪市成交量前10
+
+
+
+```
 
 # todo
 

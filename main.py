@@ -30,13 +30,17 @@ def main(args=None):
     if(args==None):
         args=sys.argv
     args=args[1]
-    if args=='test':
+    if args=='singal':
         print('当前模式为：','test...')
         while True:
-            stock_strategy(0),  # 输出策略
-    elif args=='main':
+            stock_strategy(0)  # 输出策略
+    elif args=='cycle':
         while True:
                 stock_strategy(date_utils.is_weekend())
+    elif args=='volume':
+        data_utils.get_volume()
+    else:
+        print('error')
 
 
 

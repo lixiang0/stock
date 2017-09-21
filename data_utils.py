@@ -37,15 +37,15 @@ def get_volume():
     for li in answer_str:
         result=get_volumes(li.replace(' ', '').replace('\n', ''))
         if(li.__contains__('stock_sh_volume_d_10')):
-            print('沪市成交量排行：')
+            print('沪市成交量排行前10：')
         elif (li.__contains__('stock_sz_volume_d_10')):
-            print('深市成交量排行：')
+            print('深市成交量排行前10：')
         else:
             continue
         for r in result:
             print(str(r))
 
-get_volume()
+# get_volume()
 # li=get_volumes('sstock_b_down_d_10=[["sh900906","中毅达B",-1.78,0.442],["sz200017","深中华B",-1.59,3.100],["sh900928","临港B股",-0.91,1.748],["sz200037","深南电B",-0.88,4.490],["sz200530","大冷Ｂ",-0.83,4.780],["sz200581","苏威孚Ｂ",-0.67,17.690],["sz200011","深物业B",-0.64,9.300],["sz200761","本钢板Ｂ",-0.59,3.380],["sh900952","锦港Ｂ股",-0.57,0.524],["sz200539","粤电力Ｂ",-0.56,3.570]]')
 # for l in li:
 #     print(str(l))
