@@ -1,8 +1,11 @@
-# stockstrategy
-交易助手
+# 交易助手
 
 
-# v0.1_17_0911
+####Update 20190120
+
+- 将获取的实时数据保存到本地
+- 获取到的股票价格添加更新时间
+- 添加命令行启动参数
 
 #### 功能
  - 涨跌关注阈值设置为5%
@@ -12,14 +15,8 @@
 #### 用法
 
 ```python
-python3 main.py test #手动获取一次最新数据
-
-python3 main.py cycle #自动更新数据
-
-python3 main.py volume #获取深市和沪市成交量前10
-
-
-
+python3 main.py -t 0#更新一次
+python3 main.py -t 1#每隔30秒更新一次
 ```
 
 # todo
