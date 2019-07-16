@@ -1,16 +1,22 @@
 import datetime
+
+
 def diff_sec(date1,date2):
+    '计算两个时间之间的差值'
     return (date2-date1).total_seconds()
 
 def time_gap(arg_time):
+    ''
     morning_sec=diff_sec(arg_time[0],arg_time[1])
     afternoon_sec=diff_sec(arg_time[2],arg_time[3])
     return [morning_sec,afternoon_sec]
 
 def is_off(date,flag):
+    '市场关门了吗'
     return True
 
 def init_time(now):
+    '初始化市场开关门时间'
     return [datetime.datetime(now.year,now.month,now.day,9,30,00),datetime.datetime(now.year,now.month,now.day,11,30,00),datetime.datetime(now.year,now.month,now.day,13,00,00),datetime.datetime(now.year,now.month,now.day,15,00,00)]
 
 def is_weekend():

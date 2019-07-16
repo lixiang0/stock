@@ -1,5 +1,5 @@
 # 交易助手
-
+![](data/main.png)
 
 ####Update 20190120
 

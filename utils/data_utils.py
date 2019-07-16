@@ -1,25 +1,23 @@
 import requests
-import stock
-from print_msg import pprint
 import re
-from stock import Volume
-from stock import Stock
+from obj import Volume
+from obj import Stock
 def read_stocks():
     '从文件中读取关注的股票列表'
-    file=open('codelist.txt','r')
-    l=file.readlines()[1:]
-    for i,li in enumerate(l):
-        l[i]=li.replace('\n', '')
-    return l
+    codes=[code.replace('\n','') for code in open('data/hold_stock_codes.txt','r').readlines()]
+    print(f'read codes:{codes}')
+    return codes
+
 def get_volumes(args):
+    '获取成交量'
     rex_pattern=re.compile(r'\["[a-z]+[0-9]+","[*]?[A-Z]{0,2}[\u4e00-\u9fa5]{0,}[Ｂ]?[Ａ]?[Ａ]?[A-Z]?[股]?",(-)?[0-9]+.[0-9]+,[0-9]+.[0-9]+\]')
-    # print(args[args.find('[')+1:args.rfind(']')])
     matchs=rex_pattern.finditer(string=args[args.find('[')+1:args.rfind(']')])
     list_volume=[]
     for match in matchs:
         args=match.group().replace('\"', '').replace('[', '').replace(']', '').split(',')
         list_volume.append(obj_volume(args))
     return list_volume
+
 def get_stocks(loader):
     '获取股票的实时数据'
     # print('http://hq.sinajs.cn/list='+read_stocks())
@@ -27,16 +25,13 @@ def get_stocks(loader):
     string_codes=','.join(list_codes)[:]
     list_values = loader.download('http://hq.sinajs.cn/list='+string_codes).split('\n')
     value_list=[]
-    # list_values=list_values#[1:-4]#暂时不关注指数
-    # pprint(list_values)
     for i,value in enumerate(list_values):
         if (len(value) < 3):
             continue
         value=(value.split('\"')[1]+','+list_codes[i]).split(",")
-        # print(s)
-        # print()
         value_list.append(Stock(value))
     return value_list
+
 def get_volume():
     url='http://hq.sinajs.cn/format=text & rn =@ & list = stock_sh_up_d_10, stock_sh_down_d_10, stock_sz_up_d_10, stock_sz_down_d_10, stock_sh_volume_d_10, stock_sh_amount_d_10, stock_sz_volume_d_10, stock_sz_amount_d_10, stock_b_up_d_10, stock_b_down_d_10'.replace(' ','')
     answer_str=requests.get(url).text.split('\n')
