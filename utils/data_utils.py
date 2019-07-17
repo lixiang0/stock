@@ -2,10 +2,13 @@ import requests
 import re
 from obj import Volume
 from obj import Stock
+import os
 def read_stocks():
     '从文件中读取关注的股票列表'
+    if not os.path.exists('data/hold_stock_codes.txt'):
+        raise Exception('请新建data/hold_stock_codes.txt文件，并添加股票代码')
     codes=[code.replace('\n','') for code in open('data/hold_stock_codes.txt','r').readlines()]
-    print(f'read codes:{codes}')
+    # print(f'read codes:{codes}')
     return codes
 
 def get_volumes(args):
