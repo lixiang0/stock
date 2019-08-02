@@ -15,7 +15,7 @@ def is_off():
     '市场关门了吗'
     now = datetime.datetime.now()
     m_start,m_end,a_start,a_end = init_time(now)
-    return not (diff_sec(now,m_start)>0 and diff_sec(now,m_end)<0) or (diff_sec(now,a_start)>0 and diff_sec(now,a_end)<0)#开市了吗？
+    return (diff_sec(now,m_start)>0 and diff_sec(now,m_end)<0) or (diff_sec(now,a_start)>0 and diff_sec(now,a_end)<0)#开市了吗？
 
 def init_time(now):
     '初始化市场开关门时间'

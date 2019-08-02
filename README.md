@@ -2,9 +2,23 @@
 设置需关注的股票代码，自动更新股票最新价格
 ![](data/main.png)
 
+退出在界面按```q```。
 
 
 #### 用法
+
+0.安装依赖的包
+
+windows:
+
+```
+pip install windows-curses
+```
+
+ubuntu:
+```
+sudo apt-get install libncurses5-dev
+```
 
 1.在```/data/hold_stock_codes.txt```文件加入股票代码，比如：
 ```
