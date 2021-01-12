@@ -18,21 +18,29 @@ if __name__=='__main__':
     curses.echo()
     scr.nodelay(True)
     FIRST=True
-    while True:
-        if scr.getch()==ord('q'):
-            break
-        if (date_utils.is_off() or date_utils.is_weekend()) and not FIRST:
-            curses.napms(3*1000)
-            continue
-        out='\n'.join([str(value) for value in data_utils.get_stocks(HtmlDownloader())])+'\n'+'-'*100
-        if (date_utils.is_off() or date_utils.is_weekend()):
-            out+='\n市场闭市......\n停止更新......'
-        scr.addstr(0,0,out)
-        scr.refresh()
-        curses.napms(3000)
-        FIRST=False
-
-    curses.endwin()
+    try:
+        while True:
+            if scr.getch()==ord('q'):
+                break
+            if (date_utils.is_off() or date_utils.is_weekend()) and not FIRST:
+                curses.napms(3*1000)
+                continue
+            # out='\n'.join([str(value) for value in data_utils.get_stocks(HtmlDownloader())])+'\n'+'-'*100
+            stocks=data_utils.get_stocks(HtmlDownloader())
+            for i in range(len(stocks)):
+                scr.addstr(i,0,str(stocks[i]))
+            # if (date_utils.is_off() or date_utils.is_weekend()):
+            #     out+='\n市场闭市......\n停止更新......'
+            
+            scr.refresh()
+            curses.napms(3000)
+            FIRST=False
+    except Exception as e:
+        print(repr(e))
+    finally:
+        curses.endwin()
+    
+    
 
 
 
